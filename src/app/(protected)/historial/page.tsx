@@ -1,18 +1,18 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { ReportesView } from "./reportes-view";
+import { HistorialList } from "./historial-list";
 
-export default async function ReportesPage() {
+export default async function HistorialPage() {
   const session = await auth();
 
   if (!session?.user) {
     redirect("/auth/login");
   }
 
-  // Solo ADMIN y CONSEJO pueden ver reportes
+  // Solo ADMIN, CONSEJO y ASISTENTE pueden ver historial
   if (session.user.role === "RESIDENTE") {
     redirect("/pqrs");
   }
 
-  return <ReportesView />;
+  return <HistorialList />;
 }
